@@ -1,0 +1,11 @@
+<Project>
+ <PropertyGroup>
+   <Deterministic>true</Deterministic>
+ </PropertyGroup>
+ 
+  <PropertyGroup>
+    <MSBuildProjectExtensionsPath>$(MSBuildProjectDirectory)/../obj/Lunch/</MSBuildProjectExtensionsPath>
+    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/../obj/Lunch/</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildProjectDirectory)/../bin/Lunch/</BaseOutputPath>
+  </PropertyGroup>
+</Project>

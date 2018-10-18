@@ -1,0 +1,12 @@
+version: '3'
+
+# when port 80 couldnt be bound, stop iis
+
+services: 
+  api:
+    image: lunch-api:latest
+    build: ./Lunch
+    volumes:
+      - ./Lunch:/lunch/Lunch
+    ports:
+      - "80:5000"
