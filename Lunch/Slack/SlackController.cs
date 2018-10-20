@@ -23,7 +23,7 @@ namespace Lunch.Slack
         public Message Order([FromForm] Payload payload)
         {
             string message = "Could not find the desired product.";
-            MenuItem item = MenuProvider.GetMenu().GetItem(payload.Text.Trim());
+            MenuItem item = MenuProvider.Menu.GetItem(payload.Text.Trim());
 
             if (item != null)
             {

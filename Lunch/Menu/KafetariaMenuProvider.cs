@@ -1,8 +1,13 @@
 namespace Lunch.Menu
 {
-    public class KafetariaMenuProvider : IMenuProvider
+    public class KafetariaMenuProvider : MenuProvider
     {
-        public Menu GetMenu()
+        protected override Menu CreateMenu()
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public override void InvalidateMenu()
         {
             throw new System.NotImplementedException();
         }

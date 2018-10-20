@@ -2,6 +2,7 @@ namespace Lunch.Menu
 {
     public interface IMenuProvider
     {
-        Menu GetMenu();
+        Menu Menu { get; }
+        void InvalidateMenu();
     }
 }
