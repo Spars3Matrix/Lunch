@@ -26,7 +26,7 @@ namespace Lunch.Menu
 
         public bool Exists(string description)
         {
-            return description == null ||
+            return !string.IsNullOrEmpty(description) &&
                 MenuItems.Any(item => item.Description == description);
         }
 
