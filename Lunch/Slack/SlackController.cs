@@ -12,18 +12,11 @@ namespace Lunch.Slack
     [ApiController]
     public class SlackController : ControllerBase
     {
-        private readonly IMenuProvider MenuProvider;
-
-        public SlackController(IMenuProvider menuProvider)
-        { 
-            MenuProvider = menuProvider;
-        }
-
         [HttpPost("order")]
         public Message Order([FromForm] Payload payload)
         {
             string message = "Could not find the desired product.";
-            MenuItem item = MenuProvider.Menu.GetItem(payload.Text.Trim());
+            MenuItem item = new MenuService().Menu.GetItem(payload.Text.Trim());
 
             if (item != null)
             {

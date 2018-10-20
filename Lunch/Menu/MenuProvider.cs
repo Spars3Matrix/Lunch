@@ -2,7 +2,7 @@ namespace Lunch.Menu
 {
     public abstract class MenuProvider : IMenuProvider
     {
-        protected readonly object lck = null;
+        protected readonly object lck = new object();
 
         protected Menu menu;
         public Menu Menu => GetMenu();

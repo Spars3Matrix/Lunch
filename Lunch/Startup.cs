@@ -27,22 +27,27 @@ namespace Lunch
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton<IMenuProvider>(new MockMenuProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            IMenuProvider menuProvider;;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                menuProvider = new MockMenuProvider();
             }
             else
             {
                 app.UseHsts();
+                menuProvider = new KafetariaMenuProvider();
             }
 
-            app.UseHttpsRedirection();
+            new MenuService().SetMenuProvider(menuProvider);
+
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
