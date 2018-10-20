@@ -5,6 +5,8 @@ namespace Lunch.Menu
 {
     public class Menu
     {
+        public static readonly Menu Empty = new Menu();
+
         private IList<MenuItem> MenuItems;
 
         public Menu()
