@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lunch.Data;
 using Lunch.Menu;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace Lunch
             }
 
             new MenuService().SetMenuProvider(menuProvider);
+            LunchDatabase.Configuration = Configuration;
 
             // app.UseHttpsRedirection();
             app.UseMvc();
