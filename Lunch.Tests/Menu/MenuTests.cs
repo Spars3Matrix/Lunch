@@ -14,6 +14,7 @@ namespace Lunch.Tests.Menu
             Assert.True(menu.Add(fries, 2m));
             Assert.False(menu.Add(fries, 1.5m));
             Assert.False(menu.Add(soda, -1m));
+            Assert.True(menu.Add(soda, 0m));
             Assert.False(menu.Add(null, 1m));
             Assert.False(menu.Add("", 1m));
         }
