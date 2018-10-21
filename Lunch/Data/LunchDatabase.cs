@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Lunch.Order;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +45,33 @@ namespace Lunch.Data
             }
 
             return result;
+        }
+
+        public override int SaveChanges()
+        {
+            AddTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            AddTimestamps();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void AddTimestamps()
+        {
+            ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified))
+                .ForEach(entry => {
+                    if (entry.State == EntityState.Added) 
+                    {
+                        (entry.Entity as BaseEntity).Created = DateTime.UtcNow;
+                    }
+
+                    (entry.Entity as BaseEntity).Modified = DateTime.UtcNow;
+                });
         }
     }
 }
