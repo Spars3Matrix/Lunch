@@ -2,7 +2,7 @@ using Xunit;
 
 namespace Lunch.Tests.Menu
 {
-    public class Menu
+    public class Menu : BaseTest
     {
         [Fact]
         public void Add()
