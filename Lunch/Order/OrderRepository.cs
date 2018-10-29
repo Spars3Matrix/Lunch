@@ -10,9 +10,9 @@ namespace Lunch.Order
         
         private OrderDao Dao = new OrderDao();
 
-        public IEnumerable<OrderItem> GetByPerson(string person) => Dao.GetByPerson(person);
+        public IEnumerable<OrderItem> GetByPerson(string person, ResultFilter filter) => Dao.GetByPerson(person, filter);
 
-        public IEnumerable<OrderItem> GetByDate(DateTime start, DateTime end) => Dao.GetByDate(start, end);
+        public IEnumerable<OrderItem> GetByDate(DateTime start, DateTime end, ResultFilter filter) => Dao.GetByDate(start, end, filter);
 
         public OrderItem Save(OrderItem item) => Dao.Save(item);
 

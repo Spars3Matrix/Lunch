@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lunch.Data;
 using Lunch.Menu;
 
 namespace Lunch.Order
 {
     public class OrderService
     {
-        public IEnumerable<OrderItem> GetItems(string person)
+        public IEnumerable<OrderItem> GetItems(string person, ResultFilter filter)
         {
-            return new OrderRepository().GetByPerson(person);
+            return new OrderRepository().GetByPerson(person, filter);
         }
 
         public OrderResult IncrementOrder(string description, string person, int amount = 1)
@@ -56,10 +57,14 @@ namespace Lunch.Order
             return result;
         }
 
+        public void Cancel(string description, string person) {
+            Order(description, person, 0);
+        }
+
         private OrderItem GetOrCreate(string description, string person)
         {
             return new OrderRepository()
-                .GetByPerson(person)
+                .GetByPerson(person, ResultFilter.Default)
                 .FirstOrDefault(o => o.Description == description) ?? new OrderItem(description, person);
         }
     }

@@ -31,9 +31,13 @@ namespace Lunch.Data
 
         protected IEnumerable<T> FindEntities<T>(
             DbSet<T> collection, 
-            Expression<Func<T, bool>> predicate) where T: class
+            Expression<Func<T, bool>> predicate,
+            ResultFilter filter = null) where T: class
         {
-            return collection.Where(predicate).ToList();
+            IQueryable<T> query = collection.Where(predicate);
+            if (filter != null) query = filter.Filter(query);
+
+            return query.ToList();
         }
 
         protected T AddOrUpdateEntity<T>(
