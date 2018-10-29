@@ -13,14 +13,7 @@ namespace Lunch.Data
 {
     public class LunchDatabase : DbContext
     {
-        private readonly string[] ConfigurationKeys = new string[]
-        {
-            "Host",
-            "Port",
-            "Username",
-            "Password",
-            "Database"
-        };
+        public static bool IsTesting { get; set; } = false;
         public static IConfiguration Configuration { private get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -29,7 +22,8 @@ namespace Lunch.Data
         {
             if (!builder.IsConfigured)
             {
-                builder.UseNpgsql(GetConnectionString());
+                if (!IsTesting) builder.UseNpgsql(GetConnectionString());
+                else builder.UseInMemoryDatabase("lunch");
             }
         }
 
