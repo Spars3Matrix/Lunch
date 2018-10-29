@@ -20,6 +20,7 @@ namespace Lunch
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            LunchDatabase.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -33,7 +34,7 @@ namespace Lunch
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            IMenuProvider menuProvider;;
+            IMenuProvider menuProvider;
 
             if (env.IsDevelopment())
             {
@@ -47,7 +48,6 @@ namespace Lunch
             }
 
             new MenuService().SetMenuProvider(menuProvider);
-            LunchDatabase.Configuration = Configuration;
 
             // app.UseHttpsRedirection();
             app.UseMvc();
