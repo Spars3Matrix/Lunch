@@ -8,21 +8,22 @@ namespace Lunch.Order
 {
     public class OrderService
     {
-        public IEnumerable<OrderItem> GetItems(string person, ResultFilter filter)
+        public IEnumerable<OrderItem> GetItems(string person, ResultFilter filter = null)
         {
+            if (filter == null) filter = ResultFilter.Default;
             return new OrderRepository().GetByPerson(person, filter);
         }
 
         public OrderResult IncrementOrder(string description, string person, int amount = 1)
         {
             int currentAmount = GetOrCreate(description, person)?.Amount ?? 0;
-            return Order(description, person, currentAmount + 1);
+            return Order(description, person, currentAmount + amount);
         }
 
         public OrderResult DecrementOrder(string description, string person, int amount = 1)
         {
             int currentAmount = GetOrCreate(description, person)?.Amount ?? 0;
-            return Order(description, person, currentAmount - 1);
+            return Order(description, person, currentAmount - amount);
         }
 
         public OrderResult Order(string description, string person, int amount) {

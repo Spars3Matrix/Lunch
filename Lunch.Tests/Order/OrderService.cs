@@ -112,18 +112,18 @@ namespace Lunch.Tests.Order
             }
 
             {
+                restoreAmount();
                 OrderResult result = service.DecrementOrder(description, person, 2);
                 Assert.True(result.Successful);
                 Assert.Equal(3, result.OrderItem.Amount);
-                restoreAmount();
             }
 
             {
+                restoreAmount();
                 service.DecrementOrder(description, person);
                 OrderResult result = service.DecrementOrder(description, person, 2);
                 Assert.True(result.Successful);
                 Assert.Equal(2, result.OrderItem.Amount);
-                restoreAmount();
             }
 
             // the rest of the tests are int Order()
