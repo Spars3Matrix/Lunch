@@ -38,8 +38,7 @@ namespace Lunch.Menu
 
         public IEnumerable<MenuItem> GetItems(ResultFilter filter = null)
         {
-            if (filter == null) filter = ResultFilter.Default;
-            return filter.Filter(MenuItems);
+            return MenuItems.Filter(filter);
         }
     }
 }

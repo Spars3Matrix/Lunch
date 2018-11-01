@@ -35,7 +35,7 @@ namespace Lunch.Data
             ResultFilter filter = null) where T: class
         {
             IQueryable<T> query = collection.Where(predicate);
-            if (filter != null) query = filter.Filter(query);
+            query = query.Filter(filter);
 
             return query.ToList();
         }
