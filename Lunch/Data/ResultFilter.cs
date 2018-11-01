@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,13 @@ namespace Lunch.Data
             if (Offset > 0) query = query.Skip(Offset);
             if (Limit > 0) query = query.Take(Limit);
             return query;
+        }
+
+        public IEnumerable<T> Filter<T>(IEnumerable<T> collection)
+        {
+            if (Offset > 0) collection = collection.Skip(Offset);
+            if (Limit > 0) collection = collection.Take(Limit);
+            return collection;
         }
     }
 }
