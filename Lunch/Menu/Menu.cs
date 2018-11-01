@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lunch.Data;
 
 namespace Lunch.Menu
 {
@@ -33,6 +34,12 @@ namespace Lunch.Menu
         public MenuItem GetItem(string description)
         {
             return MenuItems.FirstOrDefault(item => item.Description == description);
+        }
+
+        public IEnumerable<MenuItem> GetItems(ResultFilter filter = null)
+        {
+            if (filter == null) filter = ResultFilter.Default;
+            return filter.Filter(MenuItems);
         }
     }
 }
