@@ -35,10 +35,18 @@ volumes:
   lunch-database:
     external: true
 
+# secrets:
+#   postgres_user:
+#     external: true
+#   postgres_password:
+#     external: true
+#   postgres_database:
+#     external: true
+    
 secrets:
   postgres_user:
-    external: true
+    file: postgres_user.txt
   postgres_password:
-    external: true
+    file: postgres_password.txt
   postgres_database:
-    external: true
+    file: postgres_database.txt
