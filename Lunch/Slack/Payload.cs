@@ -1,46 +1,47 @@
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Lunch.Slack
 {
     public class Payload
     {
-        [JsonProperty("token")]
+        [BindProperty(Name = "token")]
         public string Token { get; set; }
 
-        [JsonProperty("team_id")]
+        [BindProperty(Name = "team_id")]
         public string TeamId { get; set; }
 
-        [JsonProperty("team_domain")]
+        [BindProperty(Name = "team_domain")]
         public string TeanDomain { get; set; }
         
-        [JsonProperty("enterprise_id")]
+        [BindProperty(Name = "enterprise_id")]
         public string EnterpriseId { get; set; }
 
-        [JsonProperty("enterprise_name")]
+        [BindProperty(Name = "enterprise_name")]
         public string EnterpriseName { get; set; }
 
-        [JsonProperty("channel_id")]
+        [BindProperty(Name = "channel_id")]
         public string ChannelId { get; set; }
 
-        [JsonProperty("channel_name")]
+        [BindProperty(Name = "channel_name")]
         public string ChannelName { get; set; }
 
-        [JsonProperty("user_id")]
+        [BindProperty(Name = "user_id")]
         public string UserId { get; set; }
 
-        [JsonProperty("user_name")]
+        [BindProperty(Name = "user_name")]
         public string UserName { get; set; }
 
-        [JsonProperty("command")]
+        [BindProperty(Name = "command")]
         public string Command { get; set; }
 
-        [JsonProperty("text")]
+        [BindProperty(Name = "text")]
         public string Text { get; set; }
 
-        [JsonProperty("response_url")]
+        [BindProperty(Name = "response_url")]
         public string ResponseUrl { get; set; }
 
-        [JsonProperty("trigger_id")]
+        [BindProperty(Name = "trigger_id")]
         public string TriggerId { get; set; }
     }
 }
