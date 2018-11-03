@@ -5,18 +5,29 @@ namespace Lunch.Tests.Menu
     public class Menu : BaseTest
     {
         [Fact]
-        public void Add()
+        public void AddItem()
         {
             string fries = "fries";
             string soda = "soda";
             
             var menu = new Lunch.Menu.Menu();
-            Assert.True(menu.Add(fries, 2m));
-            Assert.False(menu.Add(fries, 1.5m));
-            Assert.False(menu.Add(soda, -1m));
-            Assert.True(menu.Add(soda, 0m));
-            Assert.False(menu.Add(null, 1m));
-            Assert.False(menu.Add("", 1m));
+            Assert.True(menu.AddItem(fries, 2m));
+            Assert.False(menu.AddItem(fries, 1.5m));
+            Assert.False(menu.AddItem(soda, -1m));
+            Assert.True(menu.AddItem(soda, 0m));
+            Assert.False(menu.AddItem(null, 1m));
+            Assert.False(menu.AddItem("", 1m));
+        }
+
+        [Fact]
+        public void AddMenu()
+        {
+            var menu = new Lunch.Menu.Menu();
+            var submenu = new Lunch.Menu.Menu();
+            Assert.True(menu.AddMenu(submenu));
+            Assert.False(menu.AddMenu(null));
+            Assert.False(menu.AddMenu(submenu));
+            Assert.False(menu.AddMenu(menu));
         }
 
         [Fact]
@@ -26,12 +37,12 @@ namespace Lunch.Tests.Menu
             decimal price = 2m;
 
             var menu = new Lunch.Menu.Menu();
-            Assert.False(menu.Exists(null));
-            Assert.False(menu.Exists("soda"));
-            Assert.False(menu.Exists(description));
+            Assert.False(menu.ItemExists(null));
+            Assert.False(menu.ItemExists("soda"));
+            Assert.False(menu.ItemExists(description));
 
-            menu.Add(description, price);
-            Assert.True(menu.Exists(description));
+            menu.AddItem(description, price);
+            Assert.True(menu.ItemExists(description));
         }
 
         [Fact]
@@ -44,8 +55,8 @@ namespace Lunch.Tests.Menu
             Assert.Null(menu.GetItem(null));
             Assert.Null(menu.GetItem(description));
 
-            menu.Add(description, price);
-            Assert.True(menu.Exists(description));
+            menu.AddItem(description, price);
+            Assert.True(menu.ItemExists(description));
         }
     }
 }

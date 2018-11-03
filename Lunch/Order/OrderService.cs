@@ -10,8 +10,12 @@ namespace Lunch.Order
     {
         public IEnumerable<OrderItem> GetItems(string person, ResultFilter filter = null)
         {
-            if (filter == null) filter = ResultFilter.Default;
             return new OrderRepository().GetByPerson(person, filter);
+        }
+
+        public IEnumerable<OrderItem> GetItems(DateTime start, DateTime end, ResultFilter filter = null)
+        {
+            return new OrderRepository().GetByDate(start, end, filter);
         }
 
         public OrderResult IncrementOrder(string description, string person, int amount = 1)
@@ -52,6 +56,7 @@ namespace Lunch.Order
 
             OrderItem item = GetOrCreate(description, person);
             item.Amount = amount;
+            item.Price = menuItem.Price;
 
             result.OrderItem = new OrderRepository().Save(item);
             
