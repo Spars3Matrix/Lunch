@@ -9,7 +9,13 @@ namespace Lunch.Menu
 
         protected abstract Menu CreateMenu();
 
-        public abstract void InvalidateMenu();
+        public virtual void InvalidateMenu()
+        {
+            lock (lck)
+            {
+                menu = null;
+            }
+        }
 
         protected virtual Menu GetMenu()
         {
