@@ -1,3 +1,5 @@
+using System;
+
 namespace Lunch.Menu
 {
     public abstract class MenuProvider : IMenuProvider
@@ -6,6 +8,8 @@ namespace Lunch.Menu
 
         protected Menu menu;
         public Menu Menu => GetMenu();
+
+        public event MenuUpdated MenuUpdated;
 
         protected abstract Menu CreateMenu();
 
@@ -26,6 +30,8 @@ namespace Lunch.Menu
                     if (menu == null) 
                     {
                         menu = CreateMenu();
+
+                        if (MenuUpdated != null) MenuUpdated(menu);
                     }
                 }
             }

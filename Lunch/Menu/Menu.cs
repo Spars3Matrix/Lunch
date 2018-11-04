@@ -12,9 +12,9 @@ namespace Lunch.Menu
         
         public string Title { get; set; }
 
-        private IList<Menu> SubMenus;
+        public IList<Menu> SubMenus { get; set; }
 
-        private IList<MenuItem> MenuItems;
+        public IList<MenuItem> MenuItems { get; set; }
 
         public Menu(string title = null)
         {
@@ -59,19 +59,9 @@ namespace Lunch.Menu
             return false;
         }
 
-        public MenuItem GetItem(string description)
+        public IEnumerable<MenuItem> GetItemsRecursively()
         {
-            return MenuItems.FirstOrDefault(item => item.Description == description);
-        }
-
-        public IEnumerable<MenuItem> GetItems(ResultFilter filter = null)
-        {
-            return MenuItems.Filter(filter);
-        }
-
-        public IEnumerable<MenuItem> GetItemsRecursively(ResultFilter filter = null)
-        {
-            List<MenuItem> items = MenuItems.Filter(filter).ToList();
+            List<MenuItem> items = MenuItems.ToList();
 
             foreach (Menu submenu in SubMenus)
             {

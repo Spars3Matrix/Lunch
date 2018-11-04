@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lunch.Data;
 using Lunch.Menu;
+using Lunch.Search;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,7 +21,7 @@ namespace Lunch
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            LunchDatabase.Configuration = configuration;
+            Settings.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -39,7 +40,7 @@ namespace Lunch
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                menuProvider = new MockMenuProvider();
+                menuProvider = new KafetariaMenuProvider();
             }
             else
             {
@@ -47,7 +48,9 @@ namespace Lunch
                 menuProvider = new KafetariaMenuProvider();
             }
 
-            new MenuService().SetMenuProvider(menuProvider);
+            new MenuService()
+                .SetMenuProvider(menuProvider)
+                .SetSearchEngine(new MenuSearchEngine());
 
             // app.UseHttpsRedirection();
             app.UseMvc();

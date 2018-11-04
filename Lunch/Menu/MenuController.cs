@@ -14,9 +14,15 @@ namespace Lunch.Slack
     public class MenuController : ControllerBase
     {
         [HttpGet]
+        public IActionResult GetMenu()
+        {
+            return new JsonResult(new MenuService().Menu);
+        }
+        
+        [HttpGet("items")]
         public IActionResult GetMenuItems([FromQuery] ResultFilter filter)
         {
-            return new JsonResult(new MenuService().Menu.GetItems(filter));
+            return new JsonResult(new MenuService().GetItems(filter));
         }
     }
 } 

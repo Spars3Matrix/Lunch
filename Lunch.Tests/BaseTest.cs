@@ -1,6 +1,9 @@
 using System;
+using System.IO;
 using Lunch.Data;
 using Lunch.Menu;
+using Lunch.Search;
+using Microsoft.Extensions.Configuration;
 
 namespace Lunch.Tests
 {
@@ -8,8 +11,15 @@ namespace Lunch.Tests
     {
         public BaseTest() 
         {
+            Settings.Configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Lunch"))
+                .AddJsonFile("appsettings.json", false, true)
+                .Build();
+
             LunchDatabase.IsTesting = true;
-            new MenuService().SetMenuProvider(new MockMenuProvider());
+            new MenuService()
+                .SetMenuProvider(new MockMenuProvider())
+                .SetSearchEngine(new SimpleSearchEngine<MenuItem>());
             Initialize();
         }
 

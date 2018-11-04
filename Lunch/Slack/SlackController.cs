@@ -37,7 +37,7 @@ namespace Lunch.Slack
         [HttpPost("menu")]
         public Message ListMenu([FromForm] Payload payload)
         {
-            return new Message(string.Join(", ", new MenuService().Menu.GetItems().Select(i => $"{i.Description}: {i.Price} euro")));
+            return new Message(string.Join(", ", new MenuService().GetItems().Select(i => $"{i.Description}: {i.Price} euro")));
         }
 
         private OrderResult Order(string text, string person)
