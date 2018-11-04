@@ -12,8 +12,9 @@ namespace Lunch.Tests
         public BaseTest() 
         {
             Settings.Configuration = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Lunch"))
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Lunch.Api"))
                 .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile("appsettings.Development.json", false, true)
                 .Build();
 
             LunchDatabase.IsTesting = true;

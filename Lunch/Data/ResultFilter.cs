@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Lunch.Data
 {
@@ -8,10 +7,8 @@ namespace Lunch.Data
     {
         public static ResultFilter Default = new ResultFilter();
 
-        [FromQuery(Name = "limit")]
         public int Limit { get; set; } = 0;
 
-        [FromQuery(Name = "offset")]
         public int Offset { get; set; } = 0;
 
         public IQueryable<T> Filter<T>(IQueryable<T> query)

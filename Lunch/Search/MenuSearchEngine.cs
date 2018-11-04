@@ -59,8 +59,10 @@ namespace Lunch.Search
             if (string.IsNullOrEmpty(queryString)) yield break;
 
             queryString = Escape(queryString);
-            queryString += '~'; 
+            queryString += "~"; 
 
+            // FuzzyQuery query = new FuzzyQuery(new Term("joe", queryString), 5);
+            // parser.FuzzyMinSim = 10f;
             Query query = parser.Parse(queryString);
             manager.MaybeRefreshBlocking();
             IndexSearcher searcher = manager.Acquire();
@@ -90,7 +92,7 @@ namespace Lunch.Search
                 // if (SPECIAL_CHARACTERS.Contains(c)) result += '\\';
                 // result += c;
 
-                if (!SPECIAL_CHARACTERS.Contains(c)) result += c;
+                if (!SPECIAL_CHARACTERS.Contains(c.ToString())) result += c;
             }
 
             return result;

@@ -20,7 +20,7 @@ namespace Lunch.Slack
         }
         
         [HttpGet("items")]
-        public IActionResult GetMenuItems([FromQuery] ResultFilter filter)
+        public IActionResult GetMenuItems([FromQuery] ApiResultFilter filter)
         {
             return new JsonResult(new MenuService().GetItems(filter));
         }

@@ -15,7 +15,7 @@ namespace Lunch.Slack
     public class OrderController : ControllerBase
     {
         [HttpGet("{person}")]
-        public IActionResult GetRange(string person, [FromQuery] ResultFilter filter)
+        public IActionResult GetRange(string person, [FromQuery] ApiResultFilter filter)
         {
             return new JsonResult(new OrderService().GetItems(person, filter));
         }
