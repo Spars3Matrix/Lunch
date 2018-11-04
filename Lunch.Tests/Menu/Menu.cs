@@ -44,19 +44,5 @@ namespace Lunch.Tests.Menu
             menu.AddItem(description, price);
             Assert.True(menu.ItemExists(description));
         }
-
-        [Fact]
-        public void GetItem()
-        {
-            string description = "fries";
-            decimal price = 2m;
-
-            var menu = new Lunch.Menu.Menu();
-            Assert.Null(menu.GetItem(null));
-            Assert.Null(menu.GetItem(description));
-
-            menu.AddItem(description, price);
-            Assert.True(menu.ItemExists(description));
-        }
     }
 }

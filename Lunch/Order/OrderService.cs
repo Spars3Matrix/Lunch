@@ -47,7 +47,7 @@ namespace Lunch.Order
                 return result;
             }
 
-            MenuItem menuItem = new MenuService().Menu.GetItem(description);
+            MenuItem menuItem = new MenuService().GetItem(description);
             if (menuItem == null)
             {
                 result.Exception = OrderException.MenuItemDoesNotExist;

@@ -14,7 +14,6 @@ namespace Lunch.Data
     public class LunchDatabase : DbContext
     {
         public static bool IsTesting { get; set; } = false;
-        public static IConfiguration Configuration { private get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
         
@@ -22,23 +21,9 @@ namespace Lunch.Data
         {
             if (!builder.IsConfigured)
             {
-                if (!IsTesting) builder.UseNpgsql(GetConnectionString());
+                if (!IsTesting) builder.UseNpgsql(Settings.ConnectionString);
                 else builder.UseInMemoryDatabase("lunch");
             }
-        }
-
-        private string GetConnectionString()
-        {
-            string result = "";
-
-            IEnumerable<IConfigurationSection> items = Configuration.GetSection("Data").GetChildren();
-
-            foreach (IConfigurationSection item in items)
-            {
-                result += $"{item.Key}={item.Value};";
-            }
-
-            return result;
         }
 
         public override int SaveChanges()
