@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Lunch.Data;
 using Lunch.Menu;
+using Lunch.Schedule;
 
 namespace Lunch.Order
 {
@@ -10,17 +11,18 @@ namespace Lunch.Order
     {
         public IEnumerable<OrderItem> GetItems(string person, ResultFilter filter = null)
         {
-            return new OrderRepository().GetByPerson(person, filter);
+            Scheduler scheduler = new Scheduler();
+            return GetItems(person, scheduler.Start, scheduler.End, filter);
         }
 
         public IEnumerable<OrderItem> GetItems(DateTime start, DateTime end, ResultFilter filter = null)
         {
-            return new OrderRepository().GetByDate(start, end, filter);
+            return GetItems(null, start, end, filter);
         }
 
         public IEnumerable<OrderItem> GetItems(string person, DateTime start, DateTime end, ResultFilter filter = null)
         {
-            return new OrderRepository().Get(person, start, end, filter);
+            return new OrderRepository().GetItems(person, start, end, filter);
         }
 
         public OrderResult IncrementOrder(string description, string person, int amount = 1)
@@ -60,10 +62,13 @@ namespace Lunch.Order
             } 
 
             OrderItem item = GetOrCreate(menuItem.Description, person);
+            result.OrderItem = item;
             item.Amount = amount;
-            item.Price = menuItem.Price;
+            item.Price = menuItem.Price; 
 
-            result.OrderItem = new OrderRepository().Save(item);
+            OrderRepository repo = new OrderRepository();
+            if (amount > 0) repo.Save(item);
+            else repo.Delete(item.Id);
             
             return result;
         }
@@ -75,8 +80,7 @@ namespace Lunch.Order
         private OrderItem GetOrCreate(string description, string person)
         {
             string realDescription = new MenuService().GetItem(description)?.Description;
-            return new OrderRepository()
-                .GetByPerson(person, ResultFilter.Default)
+            return GetItems(person, ResultFilter.Default)
                 .FirstOrDefault(o => o.Description == realDescription) ?? new OrderItem(realDescription, person);
         }
     }

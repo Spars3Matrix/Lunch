@@ -9,8 +9,8 @@ RUN apt-get update
 RUN apt-get install -y unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l ~/vsdbg
 
-COPY ["Lunch.Api.csproj", "./"]
-COPY ["Directory.Build.props", "./"]
-RUN dotnet restore "./Lunch.Api.csproj"
+# COPY ["Lunch.Api.csproj", "./"]
+# COPY ["Directory.Build.props", "./"]
+# RUN dotnet restore "./Lunch.Api.csproj"
 
 ENTRYPOINT [ "dotnet", "watch", "run", "--urls", "https://0.0.0.0:5000" ]
