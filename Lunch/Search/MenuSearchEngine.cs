@@ -16,6 +16,7 @@ namespace Lunch.Search
     {
         private const LuceneVersion LUCENE_VERSION = LuceneVersion.LUCENE_48;
         private const string DESCRIPTION = "description";
+        private const string SPECIAL_CHARACTERS = @"+-!(){}[]^""~*?:/\";
 
         private readonly IndexWriter writer;
         private readonly Analyzer analyzer;
@@ -56,7 +57,8 @@ namespace Lunch.Search
         {
             if (queryString != null) queryString = queryString.Trim();
             if (string.IsNullOrEmpty(queryString)) yield break;
-            if (!queryString.EndsWith('~')) queryString += '~'; 
+            queryString = Escape(queryString);
+            queryString += '~'; 
 
             Query query = parser.Parse(queryString);
             manager.MaybeRefreshBlocking();
@@ -76,6 +78,21 @@ namespace Lunch.Search
                 manager.Release(searcher);
                 searcher = null;
             }
+        }
+        
+        private string Escape(string query)
+        {
+            string result = "";
+
+            foreach (char c in query)
+            {
+                // if (SPECIAL_CHARACTERS.Contains(c)) result += '\\';
+                // result += c;
+
+                if (!SPECIAL_CHARACTERS.Contains(c)) result += c;
+            }
+
+            return result;
         }
     }
 }

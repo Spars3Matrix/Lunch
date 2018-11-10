@@ -40,7 +40,7 @@ namespace Lunch
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                menuProvider = new MockMenuProvider();
+                menuProvider = new KafetariaMenuProvider();
             }
             else
             {

@@ -54,7 +54,7 @@ namespace Lunch.Order
                 return result;
             } 
 
-            OrderItem item = GetOrCreate(description, person);
+            OrderItem item = GetOrCreate(menuItem.Description, person);
             item.Amount = amount;
             item.Price = menuItem.Price;
 
@@ -69,9 +69,10 @@ namespace Lunch.Order
 
         private OrderItem GetOrCreate(string description, string person)
         {
+            string realDescription = new MenuService().GetItem(description)?.Description;
             return new OrderRepository()
                 .GetByPerson(person, ResultFilter.Default)
-                .FirstOrDefault(o => o.Description == description) ?? new OrderItem(description, person);
+                .FirstOrDefault(o => o.Description == realDescription) ?? new OrderItem(realDescription, person);
         }
     }
 }

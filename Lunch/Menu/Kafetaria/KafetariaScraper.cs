@@ -85,11 +85,11 @@ namespace Lunch.Menu.Kafetaria
 
                 for (index = 1; index < columns.Count(); index++)
                 {
-                    if (decimal.TryParse(columns.Skip(index).First().InnerText.Trim(), out decimal price))
+                    if (decimal.TryParse(columns.Skip(index).First().InnerText.Trim().Replace(',', '.'), out decimal price))
                     {
                         buns[index]
                             .Select(bun => $"{bun} {sandwich}")
-                            .ForEach(description => menu.AddItem(description, price));
+                            .ForEach(description => menu.AddItem(description.Replace("/", "").ToLower(), price));
                     }
                 }
             }

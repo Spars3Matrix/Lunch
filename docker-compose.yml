@@ -19,13 +19,11 @@ services:
     restart: always
     image: postgres:latest
     environment:
-      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_USER: mini
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
-      POSTGRES_DB_FILE: /run/secrets/postgres_database
+      POSTGRES_DB: lunch
     secrets:
       - postgres_password
-      - postgres_user
-      - postgres_database
     volumes:
       - lunch-database:/var/lib/postgresql/data
     ports:
@@ -44,9 +42,9 @@ volumes:
 #     external: true
     
 secrets:
-  postgres_user:
-    file: postgres_user.txt
+  # postgres_user:
+    # file: postgres_user.txt
   postgres_password:
     file: postgres_password.txt
-  postgres_database:
-    file: postgres_database.txt
+  # postgres_database:
+    # file: postgres_database.txt
