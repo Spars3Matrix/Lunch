@@ -21,7 +21,6 @@ namespace Lunch.Tests.Search
             Assert.NotNull(service.GetItem("fri"));
             Assert.NotNull(service.GetItem("FrIEs"));
             Assert.NotNull(service.GetItem("fris"));
-            Assert.NotNull(service.GetItem("fr/is"));
             Assert.Null(service.GetItem("   "));
             Assert.Null(service.GetItem(null));
         }

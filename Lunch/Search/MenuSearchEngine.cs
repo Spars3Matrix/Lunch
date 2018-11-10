@@ -57,7 +57,6 @@ namespace Lunch.Search
         {
             if (queryString != null) queryString = queryString.Trim();
             if (string.IsNullOrEmpty(queryString)) yield break;
-
             queryString = Escape(queryString);
             queryString += '~'; 
 
@@ -80,7 +79,7 @@ namespace Lunch.Search
                 searcher = null;
             }
         }
-
+        
         private string Escape(string query)
         {
             string result = "";
