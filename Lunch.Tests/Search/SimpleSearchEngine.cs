@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Lunch.Tests.Search
 {
+    [Collection("Search")]
     public class SimpleSearchEngine : BaseTest
     {
         protected override void Initialize()

@@ -1,9 +1,11 @@
 using Lunch.Menu;
 using Lunch.Search;
 using Xunit;
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace Lunch.Tests.Search
 {
+    [Collection("Search")]
     public class MenuSearchEngine : BaseTest
     {
         protected override void Initialize()

@@ -18,6 +18,11 @@ namespace Lunch.Order
             return new OrderRepository().GetByDate(start, end, filter);
         }
 
+        public IEnumerable<OrderItem> GetItems(string person, DateTime start, DateTime end, ResultFilter filter = null)
+        {
+            return new OrderRepository().Get(person, start, end, filter);
+        }
+
         public OrderResult IncrementOrder(string description, string person, int amount = 1)
         {
             int currentAmount = GetOrCreate(description, person)?.Amount ?? 0;
