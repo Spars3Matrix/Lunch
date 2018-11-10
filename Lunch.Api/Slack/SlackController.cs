@@ -29,7 +29,12 @@ namespace Lunch.Slack
         {
             IEnumerable<OrderItem> items = new CommandHandler().ListOrder(payload.UserName, payload.Text);
 
-            return new Message(string.Join(", ", items.Select(i => $"{i.Amount} x {i.Description} for {i.Price} = {i.Total} ({i.Person})")));
+            Message message = new Message();
+            Attachment attachment = new Attachment("Order", string.Join("\n", items.Select(i => $"{i.Amount} x {i.Description} = {i.Total}")));
+            attachment.AddField("Total", items.Sum(i => i.Total).ToString());
+            message.AddAttachment(attachment);
+
+            return message;
         }
 
         [HttpPost("menu")]
