@@ -7,14 +7,13 @@ namespace Lunch.Order
 {
     public class OrderDao : Dao
     {
-        public IEnumerable<OrderItem> GetByPerson(string person, ResultFilter filter)
-        {
-            return Execute(database => FindEntities(database.OrderItems, o => o.Person == person, filter));
-        }
 
-        public IEnumerable<OrderItem> GetByDate(DateTime start, DateTime end, ResultFilter filter)
+        public IEnumerable<OrderItem> Get(string person, DateTime start, DateTime end, ResultFilter filter)
         {
-            return Execute(database => FindEntities(database.OrderItems, o => o.Modified >= start && o.Modified <= end, filter));
+            return Execute(database => FindEntities(database.OrderItems, o =>
+                (string.IsNullOrEmpty(person) || o.Person == person) && 
+                (start == DateTime.MinValue || o.Modified >= start) && 
+                (end == DateTime.MaxValue || o.Modified <= end), filter));
         }
 
         public OrderItem Save(OrderItem item)

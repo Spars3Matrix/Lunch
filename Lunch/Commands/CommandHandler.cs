@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lunch.Menu;
 using Lunch.Order;
+using Lunch.Schedule;
 
 namespace Lunch.Commands
 {
@@ -15,9 +16,8 @@ namespace Lunch.Commands
         public virtual IEnumerable<OrderItem> ListOrder(string initiator, string command)
         {
             OrderService service = new OrderService();
-            return command != null && command.Trim().ToLower().StartsWith("all") ?
-                service.GetItems(DateTime.MinValue, DateTime.MaxValue) :
-                service.GetItems(initiator);
+            Scheduler scheduler = new Scheduler();
+            return service.GetItems(command.Trim() == "all" ? null : initiator, scheduler.Start, scheduler.End);
         }
 
         public virtual OrderResult Order(string initiator, string command)
