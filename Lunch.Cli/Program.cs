@@ -32,7 +32,7 @@ namespace Lunch.Cli
             Settings.Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile("appsettings.Development.json", false, true)
+                .AddJsonFile("appsettings.Development.json", true, true)
                 .Build();
 
             new MenuService()

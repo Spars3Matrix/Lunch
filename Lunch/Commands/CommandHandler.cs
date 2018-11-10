@@ -17,7 +17,7 @@ namespace Lunch.Commands
         {
             OrderService service = new OrderService();
             Scheduler scheduler = new Scheduler();
-            return service.GetItems(command.Trim() == "all" ? null : initiator, scheduler.Start, scheduler.End);
+            return service.GetItems(command != null && command.Trim() == "all" ? null : initiator, scheduler.Start, scheduler.End).Coalesce();
         }
 
         public virtual OrderResult Order(string initiator, string command)

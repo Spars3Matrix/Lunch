@@ -14,8 +14,14 @@ namespace Lunch.Slack
     [ApiController]
     public class OrderController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult Get([FromQuery] ApiResultFilter filter)
+        {
+            return new JsonResult(new OrderService().GetItems(null, filter).Coalesce());
+        }
+
         [HttpGet("{person}")]
-        public IActionResult GetRange(string person, [FromQuery] ApiResultFilter filter)
+        public IActionResult Get(string person, [FromQuery] ApiResultFilter filter)
         {
             return new JsonResult(new OrderService().GetItems(person, filter));
         }
@@ -24,7 +30,7 @@ namespace Lunch.Slack
         public IActionResult Order(string description, int amount) 
         {
             return new JsonResult(new OrderService().Order(description, "Test Person", amount));
-        }
+        } 
 
         [HttpPut("add/{description}")]
         public IActionResult IncrementOrder(string description) 
